@@ -19,3 +19,5 @@
 .idea
 .DS_store
 node_modules
+/public/packs
+/node_modules
