@@ -2,6 +2,16 @@
 # The data can then be loaded with the rails db:seed command (or created alongside the database with db:setup).
 #
 # Examples:
-#
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-#   Character.create(name: 'Luke', movie: movies.first)
+csv_data = CSV.parse(
+  open("/Users/leorajuster/work/leora-juster-website/leora-juster-website-api/db/csv_data.csv").read,
+    headers: true,
+    header_converters: [lambda { |h| h.strip }, :symbol]
+  ).map do |row|
+    row.to_hash
+  end
+
+  csv_data.each do |billboard|
+    Billboard.create(billboard)
+  end
+
