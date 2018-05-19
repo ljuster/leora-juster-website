@@ -10,29 +10,20 @@ export default class Billboards extends React.Component {
     super(props)
     this.state = {
       billboards: this.props.billboards,
-      title: 'Team standup meeting',
-      appt_time: '25 January 2016 9am'
+      registeredUser: this.props.registeredUser
     }
   }
 
-  handleUserInput (obj) {
-    this.setState(obj);
+  handleRegistration (obj) {
+    this.setState({ obj })
   }
 
-  handleFormSubmit () {
-    const billboard = {name: this.state.name, image_url: this.state.image_url, score: this.state.score};
-    $.post('/billboards',
-            {billboard: billboard})
-          .done((data) => {
-            this.handleBillboardVote(data);
-          });
-  }
 
-  handleBillboardVote (billboard) {
-    const billboards = update(this.state.billboards, { $push: [billboard]});
+  handleBillboardVote (data) {
+    const billboards = update(this.state.billboards, { $push: []});
     this.setState({
       billboards: billboards.sort(function(a,b){
-        return new Date(a.appt_time) - new Date(b.appt_time);
+        return new b.score
       })
     });
   }
@@ -40,12 +31,10 @@ export default class Billboards extends React.Component {
   render () {
     return (
       <div>
-        <Register />
-        <BillboardForm input_name={this.state.name}
-          input_image_url={this.state.image_url}
-          onUserInput={(obj) => this.handleUserInput(obj)}
-          onFormSubmit={() => this.handleFormSubmit()} />
-        <BillboardsList billboards={this.state.billboards} />
+        {!this.state.registeredUser && <Register handleClick={this.handleRegistration}/> }
+        {this.state.registeredUser &&
+        <BillboardsList billboards={this.state.billboards} handleVote={this.handleBillboardVote}/>
+        }
       </div>
     )
   }

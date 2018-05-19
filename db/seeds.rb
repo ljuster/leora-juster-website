@@ -3,15 +3,15 @@
 #
 # Examples:
 #   movies = Movie.create([{ name: 'Star Wars' }, { name: 'Lord of the Rings' }])
-csv_data = CSV.parse(
-  open("/Users/leorajuster/work/leora-juster-website/leora-juster-website-api/db/csv_data.csv").read,
-    headers: true,
-    header_converters: [lambda { |h| h.strip }, :symbol]
-  ).map do |row|
-    row.to_hash
-  end
+  csv_data = CSV.parse(
+    open("/Users/leorajuster/work/leora-juster-website/leora-juster-website-api/db/csv_data.csv").read,
+      headers: true,
+      header_converters: [lambda { |h| h.strip }, :symbol]
+    ).map do |row|
+      row.to_hash
+    end
 
   csv_data.each do |billboard|
-    Billboard.create(billboard)
+    RankedItems::Billboard.create(billboard)
   end
 

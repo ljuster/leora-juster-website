@@ -1,3 +1,0 @@
-class Billboard < ApplicationRecord
-
-end
