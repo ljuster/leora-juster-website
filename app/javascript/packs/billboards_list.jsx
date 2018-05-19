@@ -1,11 +1,24 @@
 import React from 'react'
-import Appointment from './appointment'
 
-export const AppointmentsList = ({appointments}) => 
+export const BillboardsList = ({billboards}) =>
   <div>
-    {appointments.map(function(appointment) {
-      return (
-        <Appointment appointment={appointment} key={appointment.id} />
-      )
-    })}
+    <table>
+      <tr>
+        <th>Name</th>
+        <th>Image</th>
+        <th>Score</th>
+      </tr>
+      <tr>
+        {billboards.map(function(billboard) {
+        return (
+          <div>
+            <td>{billboard.name}</td>
+            <td><img src={billboard.image_url} alt={billboard.name} /></td>
+            <td>{billboard.score}</td>
+            <td><button type="button">+ 1</button><button type="button">- 1</button></td>
+          </div>
+        )
+      })}
+      </tr>
+    </table>
   </div>

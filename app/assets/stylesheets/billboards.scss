@@ -1,4 +1,4 @@
-// Place all the styles related to the Appointments controller here.
+// Place all the styles related to the Billboards controller here.
 // They will automatically be included in application.css.
 // You can use Sass (SCSS) here: http://sass-lang.com/
 
@@ -9,6 +9,11 @@ body {
   font-size: 14px;
   line-height: 1.5;
   padding-bottom: 200px;
+}
+
+img {
+  width: 100px;
+  height: 100px;
 }
 
 .submit-button {
@@ -22,7 +27,7 @@ body {
   padding: 10px;
 }
 
-.appointment {
+.billboard {
   padding-top: 10px;
   border-bottom: solid 1px #ccc;
 }

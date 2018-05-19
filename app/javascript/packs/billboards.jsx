@@ -1,14 +1,15 @@
 import React from 'react'
 import ReactDOM from 'react-dom'
-import AppointmentForm from './appointment_form'
-import { AppointmentsList } from './appointments_list'
+import BillboardForm from './billboard_form'
+import { BillboardsList } from './billboards_list'
 import update from 'immutability-helper'
+import Register from './register'
 
-export default class Appointments extends React.Component {
+export default class Billboards extends React.Component {
   constructor (props) {
     super(props)
     this.state = {
-      appointments: this.props.appointments,
+      billboards: this.props.billboards,
       title: 'Team standup meeting',
       appt_time: '25 January 2016 9am'
     }
@@ -19,18 +20,18 @@ export default class Appointments extends React.Component {
   }
 
   handleFormSubmit () {
-    const appointment = {title: this.state.title, appt_time: this.state.appt_time};
-    $.post('/appointments',
-            {appointment: appointment})
+    const billboard = {name: this.state.name, image_url: this.state.image_url, score: this.state.score};
+    $.post('/billboards',
+            {billboard: billboard})
           .done((data) => {
-            this.addNewAppointment(data);
+            this.handleBillboardVote(data);
           });
   }
 
-  addNewAppointment (appointment) {
-    const appointments = update(this.state.appointments, { $push: [appointment]});
+  handleBillboardVote (billboard) {
+    const billboards = update(this.state.billboards, { $push: [billboard]});
     this.setState({
-      appointments: appointments.sort(function(a,b){
+      billboards: billboards.sort(function(a,b){
         return new Date(a.appt_time) - new Date(b.appt_time);
       })
     });
@@ -39,22 +40,23 @@ export default class Appointments extends React.Component {
   render () {
     return (
       <div>
-        <AppointmentForm input_title={this.state.title}
-          input_appt_time={this.state.appt_time}
+        <Register />
+        <BillboardForm input_name={this.state.name}
+          input_image_url={this.state.image_url}
           onUserInput={(obj) => this.handleUserInput(obj)}
           onFormSubmit={() => this.handleFormSubmit()} />
-        <AppointmentsList appointments={this.state.appointments} />
+        <BillboardsList billboards={this.state.billboards} />
       </div>
     )
   }
 }
 
 document.addEventListener('DOMContentLoaded', () => {
-  const node = document.getElementById('appointments_data')
+  const node = document.getElementById('billboard_data')
   const data = JSON.parse(node.getAttribute('data'))
 
   ReactDOM.render(
-    <Appointments appointments={data} />,
+    <Billboards billboards={data} />,
     document.body.appendChild(document.createElement('div')),
   )
 })

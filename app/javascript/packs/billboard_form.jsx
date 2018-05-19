@@ -2,7 +2,7 @@ import React from 'react'
 import Datetime from 'react-datetime'
 import 'react-datetime/css/react-datetime'
 
-export default class AppointmentForm extends React.Component {
+export default class BillboardForm extends React.Component {
   handleChange (e) {
     const name = e.target.name;
     const obj = {};
@@ -15,32 +15,32 @@ export default class AppointmentForm extends React.Component {
     this.props.onFormSubmit();
   }
 
-  setApptTime(e) {
-    const name = 'appt_time';
+  setBillboardScore(e) {
+    const name = 'score';
     const obj = {};
-    if(obj[name] = e.toDate()) {
+    if(obj[name] = e) {
       this.props.onUserInput(obj);
     }
   }
   
   render () {
     const inputProps = {
-      name: 'appt_time'
+      name: 'score'
     };
 
     return (
       <div>
-        <h2>Make a new appointment</h2>
+        <h2>Make a new </h2>
         <form onSubmit={(event) => this.handleSubmit(event)}>
-          <input name='title' placeholder='Appointment Title'
-            value={this.props.input_title}
+          <input name='title' placeholder='Billboard Title'
+            value={this.props.input_name}
             onChange={(event) => this.handleChange(event)} />
 
           <Datetime input={false} open={true} inputProps={inputProps}
-            value={this.props.appt_time}
-            onChange={(event) => this.setApptTime(event)} />
+            value={this.props.score}
+            onChange={(event) => this.setBillboardScore(event)} />
 
-          <input type='submit' value='Make Appointment' className='submit-button' />
+          <input type='submit' value='Submit Billboard' className='submit-button' />
         </form>        
       </div>
     )
