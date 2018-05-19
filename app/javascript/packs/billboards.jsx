@@ -15,25 +15,38 @@ export default class Billboards extends React.Component {
   }
 
   handleRegistration (obj) {
-    this.setState({ obj })
+    $.post('/sign_up',
+      {
+        password: obj.password,
+        email: obj.email,
+        name: `${obj.first_name} ${obj.last_name}`
+      }).done((data) => {
+      this.setState({ registeredUser: data})
+    })
   }
 
-
   handleBillboardVote (data) {
-    const billboards = update(this.state.billboards, { $push: []});
+    $.put('/billboards',
+      {
+        billboard: data.billboard,
+        vote: data.vote
+      }).done((data) => {
+
+    })
     this.setState({
-      billboards: billboards.sort(function(a,b){
+      billboards: this.props.billboards.sort(function(a,b){
         return new b.score
       })
-    });
+    })
+
   }
 
   render () {
     return (
       <div>
-        {!this.state.registeredUser && <Register handleClick={this.handleRegistration}/> }
+        {!this.state.registeredUser && <Register handleClick={(data) => this.handleRegistration(data)}/> }
         {this.state.registeredUser &&
-        <BillboardsList billboards={this.state.billboards} handleVote={this.handleBillboardVote}/>
+        <BillboardsList billboards={this.state.billboards} handleVote={(data) => this.handleBillboardVote(data)}/>
         }
       </div>
     )

@@ -15,7 +15,7 @@ export const BillboardsList = ({billboards}) =>
             <td>{billboard.name}</td>
             <td><img src={billboard.image_url} alt={billboard.name} /></td>
             <td>{billboard.score}</td>
-            <td><button type="button">+ 1</button><button type="button">- 1</button></td>
+            <td><button type="button" value='1'>+ 1</button><button type="button" value='-1'>- 1</button></td>
           </div>
         )
       })}

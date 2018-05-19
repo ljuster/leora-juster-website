@@ -1,8 +1,8 @@
 require 'test_helper'
 
-class AppointmentsControllerTest < ActionDispatch::IntegrationTest
+class BillboardsControllerTest < ActionDispatch::IntegrationTest
   test "should get index" do
-    get appointments_index_url
+    get billboards_index_url
     assert_response :success
   end
 

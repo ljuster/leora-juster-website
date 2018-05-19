@@ -5,7 +5,7 @@ class BillboardsController < ApplicationController
     @billboard = RankedItems::Billboard.new
   end
 
-  def create
+  def update
     @billboard = RankedItems::Billboard.new(billboard_params)
     if @billboard.save
       render json: @billboard
@@ -15,6 +15,7 @@ class BillboardsController < ApplicationController
   end
 
   private
+
   def billboard_params
     params.require(:billboard).permit(:score)
   end
